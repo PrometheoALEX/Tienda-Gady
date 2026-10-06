@@ -7,15 +7,16 @@ import com.bodega.api.domain.exceptions.MetodoPagoDeletionNotAllowedException;
 import com.bodega.api.domain.exceptions.MetodoPagoNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor
 @Service
+
+
 public class MetodoPagoServiceImpl implements MetodoPagoServicePort {
 
     private final MetodoPagoPersistencePort persistencePort;
 
-    public MetodoPagoServiceImpl(MetodoPagoPersistencePort persistencePort) {
-        this.persistencePort = persistencePort;
-    }
+
 
     @Override
     public List<MetodoPago> findAll() {

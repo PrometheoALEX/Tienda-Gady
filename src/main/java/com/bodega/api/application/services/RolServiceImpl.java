@@ -9,14 +9,13 @@ import com.bodega.api.domain.exceptions.RolDeletionNotAllowedException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class RolServiceImpl implements RolServicePort {
 
     private final RolPersistencePort persistencePort;
-
-    public RolServiceImpl(RolPersistencePort persistencePort) {
-        this.persistencePort = persistencePort;
-    }
 
     @Override
     public List<Rol> findAll() {

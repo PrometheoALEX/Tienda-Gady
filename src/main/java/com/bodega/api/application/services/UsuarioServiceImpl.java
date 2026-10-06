@@ -5,18 +5,17 @@ import com.bodega.api.domain.ports.in.UsuarioServicePort;
 import com.bodega.api.domain.ports.out.UsuarioPersistencePort;
 import com.bodega.api.domain.exceptions.UsuarioNotFoundException;
 import com.bodega.api.domain.exceptions.UsuarioDeletionNotAllowedException;
-
 import org.springframework.stereotype.Service;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor
 
 @Service
 public class UsuarioServiceImpl implements UsuarioServicePort {
 
     private final UsuarioPersistencePort persistencePort;
 
-    public UsuarioServiceImpl(UsuarioPersistencePort persistencePort) {
-        this.persistencePort = persistencePort;
-    }
 
     @Override
     public List<Usuario> findAll() {

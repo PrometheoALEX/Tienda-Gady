@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor
 @Service
 //La clase se enlaza al contrato de salida de ports
 public class CategoriaServiceImpl implements CategoriaServicePort {
 
     private final CategoriaPersistencePort persistencePort;
 
-    public CategoriaServiceImpl(CategoriaPersistencePort persistencePort) {
-        this.persistencePort = persistencePort;
-    }
+
 
     @Override
     public List<Categoria> findAll() {

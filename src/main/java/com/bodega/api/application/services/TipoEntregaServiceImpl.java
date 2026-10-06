@@ -7,14 +7,14 @@ import com.bodega.api.domain.ports.out.TipoEntregaPersistencePort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor
 @Service
 public class TipoEntregaServiceImpl implements TipoEntregaServicePort {
 
     private final TipoEntregaPersistencePort persistencePort;
 
-    public TipoEntregaServiceImpl(TipoEntregaPersistencePort persistencePort) {
-        this.persistencePort = persistencePort;
-    }
+
 
     @Override
     public List<TipoEntrega> findAll() {

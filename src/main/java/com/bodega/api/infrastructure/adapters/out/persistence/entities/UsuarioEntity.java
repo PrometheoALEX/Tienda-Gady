@@ -23,10 +23,10 @@ public class UsuarioEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rol_id", nullable = false)
+    @JoinColumn(name = "id_rol", nullable = false)
     private RolEntity rol;
 
-    @Column(name = "nombres", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombres;
 
     @Column(name = "apellidos", nullable = false, length = 100)
