@@ -105,5 +105,27 @@ public class GlobalExceptionHandler {
                         null
         );
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+
     }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUsuarioNotFoundException(UsuarioNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                null
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UsuarioDeletionNotAllowedException.class)
+    public ResponseEntity<ErrorResponse> handleUsuarioDeletionNotAllowed(UsuarioDeletionNotAllowedException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                null
+        );
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);}
 }
