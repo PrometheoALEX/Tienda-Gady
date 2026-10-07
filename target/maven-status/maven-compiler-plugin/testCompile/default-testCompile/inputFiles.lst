@@ -1,0 +1,7 @@
+/home/alexis/Documentos/TIENDA/Tienda-Gady/src/test/java/com/bodega/api/domain/model/UserTest.java
+/home/alexis/Documentos/TIENDA/Tienda-Gady/src/test/java/com/bodega/api/domain/model/CategoryTest.java
+/home/alexis/Documentos/TIENDA/Tienda-Gady/src/test/java/com/bodega/api/application/services/DeliveryTypeServiceImplTest.java
+/home/alexis/Documentos/TIENDA/Tienda-Gady/src/test/java/com/bodega/api/application/services/CategoryServiceImplTest.java
+/home/alexis/Documentos/TIENDA/Tienda-Gady/src/test/java/com/bodega/api/application/services/RoleServiceImplTest.java
+/home/alexis/Documentos/TIENDA/Tienda-Gady/src/test/java/com/bodega/api/application/services/UserServiceImplTest.java
+/home/alexis/Documentos/TIENDA/Tienda-Gady/src/test/java/com/bodega/api/application/services/PaymentMethodServiceImplTest.java
