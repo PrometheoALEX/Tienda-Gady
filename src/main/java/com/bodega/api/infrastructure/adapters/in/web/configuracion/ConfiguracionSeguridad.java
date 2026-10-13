@@ -47,7 +47,8 @@ public class ConfiguracionSeguridad {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/error").permitAll()
-                        // 1. Rutas completamente abiertas (incluyendo el registro y login de usuarios)
+
+                        // 1. Rutas completamente abiertas (registro y login)
                         .requestMatchers("/api/v1/auth/**", "/api/v1/users/**").permitAll()
 
                         // 2. Permitir lectura pública de categorías
@@ -58,10 +59,11 @@ public class ConfiguracionSeguridad {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/categories/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/categories/**").hasRole("ADMIN")
 
-                        .anyRequest().permitAll()
+                        // 4. Todo lo demás requiere autenticación obligatoria
+                        .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
-                // Registramos tu filtro JWT antes del filtro por defecto de usuario/contraseña
+                // Registramos tu filtro JWT antes del filtro por defecto
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
