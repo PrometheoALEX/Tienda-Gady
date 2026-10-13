@@ -3,19 +3,27 @@ package com.bodega.api.infrastructure.adapters.in.web.configuracion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration   //Etiqueta para spring boot
-@EnableWebSecurity //Nose que hace
+@Configuration   // Etiqueta para que Spring Boot reconozca esta clase como fuente de configuración
+@EnableWebSecurity // Habilita la seguridad web de Spring Security en la aplicación
 public class ConfiguracionSeguridad {
+
+    private final JwtTokenFilter jwtTokenFilter;
+
+    // Inyectamos tu filtro JWT personalizado
+    public ConfiguracionSeguridad(JwtTokenFilter jwtTokenFilter) {
+        this.jwtTokenFilter = jwtTokenFilter;
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(
@@ -30,15 +38,16 @@ public class ConfiguracionSeguridad {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-
-
             HttpSecurity http, DaoAuthenticationProvider authenticationProvider) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
+                // Configuramos las sesiones como Stateless (sin cookies de sesión, todo por JWT)
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .authorizeHttpRequests(auth -> auth
-
                         .requestMatchers("/error").permitAll()
-                        // 1. Rutas completamente abiertas (incluyendo el registro de usuarios)
+                        // 1. Rutas completamente abiertas (incluyendo el registro y login de usuarios)
                         .requestMatchers("/api/v1/auth/**", "/api/v1/users/**").permitAll()
 
                         // 2. Permitir lectura pública de categorías
@@ -52,11 +61,15 @@ public class ConfiguracionSeguridad {
                         .anyRequest().permitAll()
                 )
                 .authenticationProvider(authenticationProvider)
-                .httpBasic(Customizer.withDefaults())
-
+                // Registramos tu filtro JWT antes del filtro por defecto de usuario/contraseña
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
