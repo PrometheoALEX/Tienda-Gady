@@ -1,5 +1,6 @@
 package com.bodega.api.infrastructure.adapters.in.web.exception;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

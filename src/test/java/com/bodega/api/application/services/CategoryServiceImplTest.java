@@ -39,22 +39,28 @@ class CategoryServiceImplTest {
 
     @Test
     void findAll_ShouldReturnCategoryList() {
+        //Cuando el mok busque algo retorna category quien tendra los datos del before
         when(persistencePort.findAll()).thenReturn(List.of(category));
-
+        //La lista resultado aplicara al mock falso tratando encontrar todo
         List<Category> result = categoryService.findAll();
 
+        // debe dar verde si el servicio esta bien
         assertNotNull(result);
+        //debe dar en verde si la lista tiene un objeto
         assertEquals(1, result.size());
+        //Verifica si solo llamaste una sola ves al persistencePort
         verify(persistencePort, times(1)).findAll();
     }
 
     @Test
     void findById_WhenExists_ShouldReturnCategory() {
+        //cuando el mok llama por id a 1 devuelve categoria
         when(persistencePort.findById(1L)).thenReturn(Optional.of(category));
-
+        // aplica el servicio intentando de encontrar el objeto del id 1
         Category result = categoryService.findById(1L);
-
+        //Verfica el valor si es null pero y no debe ser para dar ver, es correcto
         assertNotNull(result);
+        //compara valores es verde
         assertEquals("Beverages", result.getName());
     }
 
@@ -77,8 +83,9 @@ class CategoryServiceImplTest {
 
     @Test
     void deleteById_WhenActive_ShouldThrowCategoryDeletionNotAllowedException() {
+        //Si buscas el id 1 debe devolver la categoria
         when(persistencePort.findById(1L)).thenReturn(Optional.of(category));
-
+        //
         assertThrows(CategoryDeletionNotAllowedException.class, () -> categoryService.deleteById(1L));
         verify(persistencePort, never()).deleteById(1L);
     }
