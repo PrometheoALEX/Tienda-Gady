@@ -87,9 +87,18 @@ public class ConfiguracionSeguridad {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+
+        // 1. Añadimos el dominio de Vercel y mantenemos localhost para desarrollo
+        configuration.setAllowedOrigins(List.of(
+                "https://bodega-app-flame.vercel.app",
+                "http://localhost:5173"
+        ));
+
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+
+        // 2. Permitimos todas las cabeceras para evitar bloqueos en peticiones preflight
+        configuration.setAllowedHeaders(List.of("*"));
+
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
