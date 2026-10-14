@@ -1,7 +1,6 @@
 INSERT INTO rol (id, nombre, activo) VALUES (1, 'ROLE_ADMIN', true) ON CONFLICT (id) DO NOTHING;
 INSERT INTO rol (id, nombre, activo) VALUES (2, 'ROLE_USUARIO', true) ON CONFLICT (id) DO NOTHING;
 
-
 INSERT INTO categoria (id, nombre, activo) VALUES (1, 'Bebidas y Refrescos', true) ON CONFLICT (id) DO NOTHING;
 INSERT INTO categoria (id, nombre, activo) VALUES (2, 'Lácteos y Derivados', true) ON CONFLICT (id) DO NOTHING;
 INSERT INTO categoria (id, nombre, activo) VALUES (3, 'Abarrotes y Granos', true) ON CONFLICT (id) DO NOTHING;
