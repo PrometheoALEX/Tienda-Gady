@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "https://bodega-app-flame.vercel.app")
 public class UserController {
 
     private final UserServicePort userServicePort;
