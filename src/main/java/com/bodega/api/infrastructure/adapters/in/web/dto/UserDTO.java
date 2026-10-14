@@ -20,9 +20,6 @@ import java.time.LocalDateTime;
 public class UserDTO {
     private Long id;
 
-    @NotNull(message = "Role is required")
-    private RoleDTO role;
-
     @NotBlank(message = "First name is required")
     private String firstName;
 
@@ -42,9 +39,6 @@ public class UserDTO {
 
     @NotBlank(message = "Password is required")
     private String password;
-
-    @NotNull(message = "Active status is required")
-    private Boolean active;
 
     private LocalDateTime registrationDate;
 }

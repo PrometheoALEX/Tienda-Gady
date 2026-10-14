@@ -2,6 +2,7 @@ package com.bodega.api.application.services;
 
 import com.bodega.api.domain.exceptions.UserDeletionNotAllowedException;
 import com.bodega.api.domain.exceptions.UserNotFoundException;
+import com.bodega.api.domain.model.Role;
 import com.bodega.api.domain.model.User;
 import com.bodega.api.domain.ports.in.UserServicePort;
 import com.bodega.api.domain.ports.out.UserPersistencePort;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Data
 @RequiredArgsConstructor
@@ -42,19 +44,24 @@ public class UserServiceImpl implements UserServicePort {
 
     @Override
     public User save(User user) {
-        // Si la fecha de registro es nula, le asignamos la fecha actual automáticamente
+        user.setActive(true);
+
         if (user.getRegistrationDate() == null) {
-            user.setRegistrationDate(java.time.LocalDateTime.now());
+            user.setRegistrationDate(LocalDateTime.now());
         }
 
-        // Ciframos la contraseña con BCrypt si no está cifrada
+        if (user.getRole() == null || user.getRole().getId() == null) {
+            Role defaultRole = new Role();
+            defaultRole.setId(2L);
+            user.setRole(defaultRole);
+        }
+
         if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
-        return persistencePort.save(user);
+        return persistencePort.save(user); // o userRepositoryPort.save(user)
     }
-
 
     @Override
     public User update(Long id, User user) {

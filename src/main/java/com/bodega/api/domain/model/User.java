@@ -37,7 +37,8 @@ public class User {
         }
 
         User user = new User();
-        user.setRole(role);
+        user.setRole(role
+        );
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setDni(dni);

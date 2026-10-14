@@ -13,6 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration   // Etiqueta para que Spring Boot reconozca esta clase como fuente de configuración
 @EnableWebSecurity // Habilita la seguridad web de Spring Security en la aplicación
@@ -40,6 +45,7 @@ public class ConfiguracionSeguridad {
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http, DaoAuthenticationProvider authenticationProvider) throws Exception {
         return http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // <-- ¡Aquí se integra el CORS!
                 .csrf(csrf -> csrf.disable())
                 // Configuramos las sesiones como Stateless (sin cookies de sesión, todo por JWT)
                 .sessionManagement(session -> session
@@ -76,5 +82,18 @@ public class ConfiguracionSeguridad {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
