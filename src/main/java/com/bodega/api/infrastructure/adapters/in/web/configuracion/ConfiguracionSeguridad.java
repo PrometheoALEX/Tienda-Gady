@@ -58,7 +58,7 @@ public class ConfiguracionSeguridad {
                         .requestMatchers("/api/v1/auth/**", "/api/v1/users/**").permitAll()
 
                         // 2. Permitir lectura pública de categorías
-                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/**", "/api/v1/products/**").permitAll()
 
                         // 3. Modificaciones restringidas solo para ADMIN en categorías
                         .requestMatchers(HttpMethod.POST, "/api/v1/categories/**").hasRole("ADMIN")
