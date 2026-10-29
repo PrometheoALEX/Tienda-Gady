@@ -45,27 +45,30 @@ public class ConfiguracionSeguridad {
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http, DaoAuthenticationProvider authenticationProvider) throws Exception {
         return http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // <-- ¡Aquí se integra el CORS!
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) //
                 .csrf(csrf -> csrf.disable())
-                // Configuramos las sesiones como Stateless (sin cookies de sesión, todo por JWT)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/error").permitAll()
 
-                        // 1. Rutas completamente abiertas (registro y login)
+                        //  Rutas completamente abiertas (registro y login)
                         .requestMatchers("/api/v1/auth/**", "/api/v1/users/**").permitAll()
 
-                        // 2. Permitir lectura pública de categorías
-                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/**", "/api/v1/products/**").permitAll()
+                        //  Permitir lectura pública de categorías
+                        .requestMatchers(HttpMethod.GET, "/api/v1/categories").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/products").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
 
-                        // 3. Modificaciones restringidas solo para ADMIN en categorías
+
+                        //  Modificaciones restringidas solo para ADMIN en categorías
                         .requestMatchers(HttpMethod.POST, "/api/v1/categories/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/categories/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/categories/**").hasRole("ADMIN")
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        // 4. Todo lo demás requiere autenticación obligatoria
+                        // 4. T-odo lo demás requiere autenticación obligatoria
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
@@ -81,6 +84,7 @@ public class ConfiguracionSeguridad {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
@@ -88,10 +92,10 @@ public class ConfiguracionSeguridad {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // 1. Añadimos el dominio de Vercel y mantenemos localhost para desarrollo
         configuration.setAllowedOrigins(List.of(
                 "https://bodega-app-flame.vercel.app",
-                "http://localhost:5173"
+                "http://localhost:5173",
+                "http://localhost:5174"
         ));
 
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -105,4 +109,5 @@ public class ConfiguracionSeguridad {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 }

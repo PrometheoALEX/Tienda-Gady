@@ -5,15 +5,19 @@ import com.bodega.api.infrastructure.adapters.in.web.dto.UserDTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-10-14T06:30:28-0500",
+    date = "2026-10-28T18:48:54-0500",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.10 (Oracle Corporation)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public UserDTO toDto(User domain) {
@@ -25,6 +29,7 @@ public class UserMapperImpl implements UserMapper {
 
         userDTO.id( domain.getId() );
         userDTO.firstName( domain.getFirstName() );
+        userDTO.role( roleMapper.toDto( domain.getRole() ) );
         userDTO.lastName( domain.getLastName() );
         userDTO.dni( domain.getDni() );
         userDTO.phone( domain.getPhone() );
@@ -44,6 +49,7 @@ public class UserMapperImpl implements UserMapper {
         User user = new User();
 
         user.setId( dto.getId() );
+        user.setRole( roleMapper.toDomain( dto.getRole() ) );
         user.setFirstName( dto.getFirstName() );
         user.setLastName( dto.getLastName() );
         user.setDni( dto.getDni() );

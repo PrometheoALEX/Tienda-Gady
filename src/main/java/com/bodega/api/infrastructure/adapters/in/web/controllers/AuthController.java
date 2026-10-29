@@ -22,7 +22,11 @@ public class AuthController {
     public String login(@RequestBody LoginRequest loginRequest) {
         // Valida credenciales contra la BD usando tu CustomUserDetailsService
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+                //authenticationManager empaqueta un objeto para validarlo  pero
+                //tienes que asignar los datos correspondientes con los metodos get
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword())
         );
 
         // Genera y retorna el token JWT de 5 minutos

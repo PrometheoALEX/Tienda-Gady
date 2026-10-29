@@ -49,10 +49,10 @@ public class UserServiceImpl implements UserServicePort {
         if (user.getRegistrationDate() == null) {
             user.setRegistrationDate(LocalDateTime.now());
         }
-
+        //CAPA DE REGISTRO PARA USUARIOS PRIMARIOS
         if (user.getRole() == null || user.getRole().getId() == null) {
             Role defaultRole = new Role();
-            defaultRole.setId(2L);
+            defaultRole.setId(2L); // Rol por defecto: USUARIO
             user.setRole(defaultRole);
         }
 
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserServicePort {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
-        return persistencePort.save(user); // o userRepositoryPort.save(user)
+        return persistencePort.save(user);
     }
 
     @Override

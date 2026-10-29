@@ -13,7 +13,7 @@ import java.util.List;
 public interface CategoryMapper {
     CategoryDTO toDto(Category domain);
 
-    Category toDomain(CategoryDTO dto); // Or rename to toDomain if you prefer
+    Category toDomain(CategoryDTO dto);
 
     List<CategoryDTO> toDtoList(List<Category> domainList);
 

@@ -23,6 +23,8 @@ public class UserDTO {
     @NotBlank(message = "First name is required")
     private String firstName;
 
+    private RoleDTO role;
+
     @NotBlank(message = "Last name is required")
     private String lastName;
 

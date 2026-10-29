@@ -13,7 +13,7 @@ import java.util.List;
 public interface UserMapper {
     UserDTO toDto(User domain);
 
-    @Mapping(target = "role", ignore = true)
+
     @Mapping(target = "active", ignore = true)
     User toDomain(UserDTO dto);
 
