@@ -95,7 +95,7 @@ public class ConfiguracionSeguridad {
         configuration.setAllowedOrigins(List.of(
                 "https://bodega-app-flame.vercel.app",
                 "http://localhost:5173",
-                "http://localhost:5174"
+                "http://localhost:5175"
         ));
 
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

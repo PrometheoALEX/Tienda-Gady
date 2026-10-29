@@ -1,6 +1,8 @@
 package com.bodega.api.infrastructure.adapters.in.web.controllers;
 
 import com.bodega.api.infrastructure.adapters.in.web.configuracion.TokenService;
+import com.bodega.api.infrastructure.adapters.in.web.dto.UserDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,7 +34,16 @@ public class AuthController {
         // Genera y retorna el token JWT de 5 minutos
         return tokenService.generateToken(authentication);
     }
+
+
+@PostMapping("/register")
+public ResponseEntity<?> register(@RequestBody UserDTO registerRequest) {
+    // Aquí puedes procesar el registro con tu servicio o repositorio
+    return ResponseEntity.ok("Usuario registrado exitosamente en la base de datos");
 }
+
+}
+
 
 // DTO interno para recibir las credenciales
 class LoginRequest {

@@ -11,93 +11,156 @@ TRUNCATE TABLE rol RESTART IDENTITY CASCADE;
 INSERT INTO rol (id, nombre, activo) VALUES (1, 'ROLE_ADMIN', true);
 INSERT INTO rol (id, nombre, activo) VALUES (2, 'ROLE_USUARIO', true);
 
--- =========================================================================
--- 3. INSERTAR CATEGORÍAS (Ordenadas del 1 al 10 de forma coherente)
--- =========================================================================
-INSERT INTO categoria (id, nombre, activo) VALUES (1, 'Bebidas y Refrescos', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (2, 'Lácteos y Derivados', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (3, 'Abarrotes y Granos', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (4, 'Snacks y Golosinas', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (5, 'Embutidos y Carnes', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (6, 'Frutas y Verduras', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (7, 'Limpieza del Hogar', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (8, 'Cuidado Personal', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (9, 'Panadería y Tortillas', true);
-INSERT INTO categoria (id, nombre, activo) VALUES (10, 'Congelados y Postres', true);
+-- INSERTAR USUARIO ADMINISTRADOR
+TRUNCATE TABLE usuario RESTART IDENTITY CASCADE;
+
+INSERT INTO usuario (id, id_rol, nombre, apellidos, dni, celular, correo, contrasena, activo, fecha_registro)
+VALUES (1, 1, 'Alexis', 'Izquierdo', '12345678', '987654321', 'alexis@gmail.com', '123456', true, CURRENT_TIMESTAMP);
+
 
 -- =========================================================================
--- 4. INSERTAR PRODUCTOS (Totalmente coherentes con las 10 categorías)
+-- 3. INSERTAR CATEGORÍAS TECNOLÓGICAS (Ordenadas del 1 al 8)
+-- =========================================================================
+INSERT INTO categoria (id, nombre, activo) VALUES (1, 'Laptops', true);
+INSERT INTO categoria (id, nombre, activo) VALUES (2, 'Almacenamiento', true);
+INSERT INTO categoria (id, nombre, activo) VALUES (3, 'Componentes', true);
+INSERT INTO categoria (id, nombre, activo) VALUES (4, 'Memorias RAM', true);
+INSERT INTO categoria (id, nombre, activo) VALUES (5, 'Monitores', true);
+INSERT INTO categoria (id, nombre, activo) VALUES (6, 'Periféricos', true);
+INSERT INTO categoria (id, nombre, activo) VALUES (7, 'Refrigeración', true);
+INSERT INTO categoria (id, nombre, activo) VALUES (8, 'Perifericos pendejos', true);
+
+-- =========================================================================
+-- 4. INSERTAR PRODUCTOS (Con descripciones breves y sin repetir el nombre)
 -- =========================================================================
 
--- Categoría 2: Lácteos y Derivados
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (1, 2, 'Sixpack Leche Gloria', 'Seis unidades de leche evaporada Gloria', 23.70, 50, 'lecheGloria', 0, true);
+-- Categoría 1: Laptops (IDs 1 al 8 y 51 al 56)
+INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo) VALUES
+                                                                                                           (1, 1, 'Laptop Lenovo IdeaPad Slim 3', 'Equipo ultradelgado ideal para estudio y productividad diaria', 1899.90, 25, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (2, 1, 'Laptop ASUS Vivobook 15', 'Rendimiento equilibrado con pantalla amplia de alta definición', 2299.00, 25, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (3, 1, 'Laptop HP Pavilion 14', 'Diseño versátil y gran autonomía para profesionales en movimiento', 2799.90, 25, 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (4, 1, 'Laptop gamer Acer Nitro 5', 'Potencia gráfica dedicada para ejecutar juegos exigentes sin cortes', 4299.00, 20, 'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (5, 1, 'Laptop Dell Inspiron 15', 'Solución confiable para tareas de oficina y entretenimiento multimedia', 3199.90, 20, 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (6, 1, 'MacBook Air 13 pulgadas', 'Elegante acabado en aluminio con arquitectura de máxima eficiencia', 5299.00, 15, 'https://images.unsplash.com/photo-1511385348-a52b4a160dc2?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (7, 1, 'Laptop MSI Thin 15', 'Chasis ligero optimizado para gaming y renderizado gráfico', 3899.90, 20, 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (8, 1, 'Laptop Huawei MateBook D16', 'Visualización inmersiva en formato grande y carga ultrarrápida', 3499.00, 20, 'https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (51, 1, 'Laptop Lenovo ThinkPad E14', 'Durabilidad militar y teclado ergonómico para entornos corporativos', 3699.90, 20, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (52, 1, 'Laptop ASUS TUF Gaming A15', 'Resistencia extrema con tasa de refresco superior en pantalla', 4599.00, 15, 'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (53, 1, 'Laptop HP 15-fc Ryzen 7', 'Procesamiento multicore avanzado para multitarea pesada', 3299.90, 20, 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (54, 1, 'Laptop Acer Aspire 5', 'Excelente relación calidad-precio para uso cotidiano y escolar', 2499.00, 25, 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (55, 1, 'Laptop gamer Lenovo LOQ 15', 'Sistema térmico avanzado para sesiones de juego prolongadas', 5199.90, 15, 'https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (56, 1, 'Laptop Apple MacBook Pro 14', 'Pantalla Liquid Retina XDR para creadores de contenido profesionales', 8999.00, 10, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=640&q=80', 0, true);
 
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (2, 2, 'Mantequilla', 'Mantequilla en barra', 16.06, 30, 'mantequilla', 0, true);
+-- Categoría 2: Almacenamiento (IDs 9 al 16 y 57 al 63)
+INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo) VALUES
+                                                                                                           (9, 2, 'SSD NVMe Samsung 990 EVO 1 TB', 'Velocidades de lectura ultra rápidas con interfaz PCIe 4.0', 389.90, 30, 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (10, 2, 'SSD Kingston NV2 500 GB', 'Actualización eficiente de arranque y transferencia de archivos', 189.00, 40, 'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (11, 2, 'SSD SATA Crucial MX500 1 TB', 'Estabilidad comprobada en formato clásico de 2.5 pulgadas', 329.90, 30, 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (12, 2, 'Disco duro HDD Seagate 2 TB', 'Gran capacidad de respaldo mecánico para archivos pesados', 279.00, 25, 'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (13, 2, 'Disco duro externo WD Elements 1 TB', 'Unidad portátil plug-and-play con carcasa de alta resistencia', 239.90, 30, 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (14, 2, 'SSD externo SanDisk Portable 1 TB', 'Resistente a caídas, polvo y salpicaduras para llevar a cualquier lugar', 399.00, 25, 'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (15, 2, 'Memoria USB Kingston DataTraveler 128 GB', 'Diseño compacto y retráctil para transferir documentos al instante', 39.90, 50, 'https://images.unsplash.com/photo-1618410320928-25228d811631?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (16, 2, 'Tarjeta microSD SanDisk 256 GB', 'Clasificación de rendimiento óptima para grabación en cámaras y consolas', 79.00, 45, 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (57, 2, 'SSD NVMe WD Black SN850X 2 TB', 'Rinde al máximo nivel con bajas latencias para gaming competitivo', 749.90, 20, 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (58, 2, 'SSD Crucial P3 Plus 2 TB', 'Amplio espacio con tecnología NVMe de alta eficiencia energética', 619.00, 20, 'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (59, 2, 'Disco duro HDD Seagate Barracuda 4 TB', 'Almacenamiento masivo para bibliotecas multimedia extensas', 459.90, 15, 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (60, 2, 'Disco duro externo Toshiba Canvio 2 TB', 'Copia de seguridad segura y transporte sencillo de datos', 329.00, 20, 'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (61, 2, 'SSD externo Samsung T7 Shield 1 TB', 'Protección de goma exterior contra impactos accidentales', 549.90, 20, 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (62, 2, 'Memoria USB SanDisk Ultra Flair 256 GB', 'Carcasa metálica duradera con altas velocidades de transferencia USB 3.0', 69.00, 40, 'https://images.unsplash.com/photo-1618410320928-25228d811631?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (63, 2, 'Tarjeta microSD Samsung EVO Plus 512 GB', 'Ideal para expansión de memoria en smartphones y tablets de gama alta', 149.90, 30, 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=640&q=80', 0, true);
 
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (13, 2, 'Yogurt Griego', 'Yogurt griego natural o saborizado', 19.90, 25, 'yogurtGriego', 0, true);
+-- Categoría 3: Componentes (IDs 17 al 26 y 64 al 72)
+INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo) VALUES
+                                                                                                           (17, 3, 'Procesador AMD Ryzen 5 5600', '6 núcleos y 12 hilos con arquitectura eficiente AM4', 599.90, 30, 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (18, 3, 'Procesador Intel Core i5-14400F', 'Eficiencia y potencia equilibrada para equipos de escritorio modernos', 899.00, 25, 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (19, 3, 'Tarjeta gráfica NVIDIA GeForce RTX 4060', 'Tecnología DLSS 3 y trazado de rayos accesible', 1699.90, 20, 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (20, 3, 'Tarjeta de vídeo AMD Radeon RX 7600', 'Gráficos fluidos en resolución 1080p con arquitectura RDNA 3', 1499.00, 20, 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (21, 3, 'Placa madre ASUS Prime B550M-A', 'Soporte PCIe 4.0 con opciones estables de conectividad', 499.90, 25, 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (22, 3, 'Placa madre MSI PRO B760M-P', 'Diseño empresarial y para entusiastas con ranuras DDR5', 579.00, 25, 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (23, 3, 'Fuente de poder Corsair 650 W 80 Plus Bronze', 'Certificación energética confiable con ventilador silencioso', 349.90, 30, 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (24, 3, 'Gabinete gamer con panel de vidrio', 'Excelente flujo de aire y ventana lateral de cristal templado', 329.00, 20, 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (25, 3, 'Tarjeta gráfica NVIDIA GeForce RTX 4070 SUPER', 'Rendimiento gráfico superior para resoluciones 1440p ultra', 2999.90, 15, 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (26, 3, 'Procesador AMD Ryzen 7 7800X3D', 'El procesador favorito para gaming con caché 3D masiva', 1899.00, 15, 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (64, 3, 'Procesador Intel Core i7-14700K', 'Arquitectura híbrida de alto rendimiento para creación pesada', 2199.00, 15, 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (65, 3, 'Procesador AMD Ryzen 9 7900X', 'Multitarea extrema orientada a estaciones de trabajo exigentes', 1999.90, 15, 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (66, 3, 'Tarjeta gráfica NVIDIA GeForce RTX 4080 SUPER', 'Potencia monstruosa para juego en 4K y render 3D profesional', 4999.00, 10, 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (67, 3, 'Tarjeta gráfica AMD Radeon RX 7800 XT', 'Excelente relación de memoria VRAM para configuraciones avanzadas', 2599.90, 15, 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (68, 3, 'Placa madre Gigabyte B650 AORUS Elite AX', 'Conectividad Wi-Fi integrada y disipadores térmicos robustos', 1099.00, 20, 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (69, 3, 'Placa madre ASUS ROG Strix Z790-F', 'Diseño tope de gama enfocado en overclocking y máxima estabilidad', 1899.90, 15, 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (70, 3, 'Fuente de poder EVGA 750 W 80 Plus Gold', 'Eficiencia superior al 90% con cables totalmente modulares', 599.00, 20, 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (71, 3, 'Gabinete gamer NZXT H5 Flow', 'Flujo de aire optimizado con panel frontal perforado', 499.90, 20, 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (72, 3, 'Tarjeta gráfica NVIDIA GeForce RTX 4060 Ti', 'Equilibrio perfecto entre velocidad y consumo energético', 2199.00, 15, 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=640&q=80', 0, true);
 
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (16, 2, 'Pack 6 Yogurt Gloria', 'Pack ahorro yogurt fresa 6x180g', 13.50, 40, 'https://metroio.vtexassets.com/arquivos/ids/392679/YOGURT-GLORIA-PACK-AGORRO-FRESA-6X180G-1-351633040.jpg?v=638180611425030000', 0, true);
+-- Categoría 4: Memorias RAM (IDs 27 al 30 y 73 al 76)
+INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo) VALUES
+                                                                                                           (27, 4, 'Memoria RAM DDR4 Corsair Vengeance 16 GB', 'Disipador de aluminio de perfil bajo con estabilidad probada', 159.90, 40, 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (28, 4, 'Memoria RAM DDR4 Kingston Fury 32 GB', 'Capacidad extendida para edición y multitarea intensiva', 289.00, 35, 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (29, 4, 'Memoria RAM DDR5 Corsair Vengeance 32 GB', 'Nuevos estándares de velocidad con gestión de energía integrada', 429.90, 30, 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (30, 4, 'Memoria RAM para laptop Crucial 16 GB', 'Mejora instantánea de velocidad en equipos portátiles', 179.00, 35, 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (73, 4, 'Memoria RAM DDR5 G.Skill Ripjaws S5 32 GB', 'Diseño elegante optimizado para plataformas Intel de última generación', 499.90, 25, 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (74, 4, 'Memoria RAM DDR5 Kingston Fury Beast 64 GB', 'Kit masivo para estaciones de render y virtualización', 899.00, 15, 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (75, 4, 'Memoria RAM DDR4 TeamGroup T-Force 32 GB', 'Disipación agresiva y rendimiento fiable para juegos', 269.90, 30, 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (76, 4, 'Memoria RAM para laptop DDR5 Crucial 32 GB', 'Ancho de banda superior para portátiles modernos', 349.00, 25, 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=640&q=80', 0, true);
 
--- Categoría 3: Abarrotes y Granos
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (3, 3, 'Aceite', 'Aceite vegetal botella 1L', 15.50, 40, 'aceite', 0, true);
+-- Categoría 5: Monitores (IDs 31 al 35 y 77 al 80)
+INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo) VALUES
+                                                                                                           (31, 5, 'Monitor LG UltraGear 24 pulgadas 144 Hz', 'Panel IPS rápido con respuesta de 1ms para eSports', 799.90, 20, 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (32, 5, 'Monitor Samsung 27 pulgadas QHD', 'Nitidez superior con resolución 2K y colores vibrantes', 1199.00, 15, 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (33, 5, 'Monitor ASUS TUF Gaming 27 pulgadas', 'Sincronización adaptativa y construcción robusta para gamers', 1399.90, 15, 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (34, 5, 'Monitor Dell 24 pulgadas Full HD', 'Tratamiento antirreflejo y comodidad visual prolongada', 649.00, 25, 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (35, 5, 'Monitor Xiaomi 34 pulgadas ultrawide', 'Campo visual panorámico ideal para multitarea y simulación', 1799.90, 10, 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (77, 5, 'Monitor AOC 24 pulgadas 165 Hz', 'Fluidez extrema en cada movimiento rápido de pantalla', 899.90, 20, 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (78, 5, 'Monitor BenQ 27 pulgadas 4K', 'Precisión cromática profesional para diseño y edición de video', 1899.00, 10, 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (79, 5, 'Monitor gamer Acer Nitro 27 pulgadas 180 Hz', 'Alta tasa de refresco para una ventaja competitiva nítida', 1499.90, 15, 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (80, 5, 'Monitor portátil ASUS ZenScreen 15.6 pulgadas', 'Pantalla secundaria delgada con conexión USB-C directa', 1099.00, 15, 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=640&q=80', 0, true);
 
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (4, 3, 'Arroz', 'Arroz superior bolsa 5kg', 23.90, 60, 'arroz', 0, true);
+-- Categoría 6: Periféricos (IDs 36 al 45 y 81 al 90)
+INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo) VALUES
+                                                                                                           (36, 6, 'Teclado mecánico Logitech G413', 'Switches táctiles Romer-G con estructura de aluminio cepillado', 299.90, 30, 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (37, 6, 'Teclado inalámbrico Logitech K380', 'Conectividad multidispositivo por Bluetooth para cualquier sistema', 159.00, 35, 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (38, 6, 'Mouse gamer Logitech G502 HERO', 'Sensor de alta precisión con pesas ajustables y botones programables', 219.90, 40, 'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (39, 6, 'Mouse inalámbrico Logitech M185', 'Conexión nano USB estable con gran eficiencia de batería', 49.00, 50, 'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (40, 6, 'Audífonos gamer HyperX Cloud Stinger', 'Almohadillas de espuma viscoelástica y sonido envolvente claro', 199.90, 30, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (41, 6, 'Webcam Logitech C920 Full HD', 'Transmisión en alta definición con corrección automática de iluminación', 329.00, 25, 'https://images.unsplash.com/photo-1587826080692-f439cd0b70da?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (42, 6, 'Parlantes Logitech Z150', 'Sonido estéreo compacto con control de volumen frontal', 109.90, 30, 'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (43, 6, 'Parlante Bluetooth JBL Flip 6', 'Resistencia al agua IP67 y graves potentes para exteriores', 499.00, 25, 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (44, 6, 'Micrófono USB para streaming', 'Captación de voz nítida con patrón polar ajustable', 279.90, 20, 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (45, 6, 'Mousepad gamer extendido', 'Superficie de tela suave con base de goma antideslizante', 69.00, 40, 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (81, 6, 'Teclado mecánico inalámbrico Keychron K8', 'Diseño sin tenkeyless con interruptores intercambiables en caliente', 429.90, 20, 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (82, 6, 'Teclado gamer Redragon Kumara RGB', 'Estructura metálica compacta con iluminación personalizable', 189.00, 30, 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (83, 6, 'Mouse gamer inalámbrico Razer Basilisk V3 Pro', 'Rueda inclinable y conectividad ultrarrápida sin retrasos', 699.90, 20, 'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (84, 6, 'Mouse ergonómico Logitech Lift', 'Ángulo vertical natural para reducir la fatiga en la muñeca', 349.00, 25, 'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (85, 6, 'Audífonos inalámbricos Sony WH-1000XM5', 'Cancelación de ruido líder en la industria con audio de alta fidelidad', 1399.90, 15, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (86, 6, 'Webcam Razer Kiyo X Full HD', 'Lente de enfoque ajustable para videollamadas fluidas a 60 fps', 349.00, 25, 'https://images.unsplash.com/photo-1587826080692-f439cd0b70da?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (87, 6, 'Parlantes Edifier R1280DB Bluetooth', 'Gabinete de madera con controles físicos de graves y agudos', 699.90, 20, 'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (88, 6, 'Parlante inteligente Amazon Echo Dot', 'Control por voz con asistente virtual integrado para el hogar', 229.00, 30, 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (89, 6, 'Micrófono condensador Blue Yeti USB', 'Múltiples patrones de captación para podcasts y locución', 599.90, 15, 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (90, 6, 'Control inalámbrico Xbox Series', 'Agarre texturizado y gatillos texturizados para máxima precisión', 329.00, 25, 'https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=640&q=80', 0, true);
 
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (5, 3, 'Fideos', 'Fideos tallarín paquete 500g', 4.50, 80, 'fideos', 0, true);
+-- Categoría 7: Refrigeración (IDs 46 al 48 y 91 al 94)
+INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo) VALUES
+                                                                                                           (46, 7, 'Base ventiladora para laptop de 15.6 pulgadas', 'Malla metálica de disipación con altura regulable', 99.90, 35, 'https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (47, 7, 'Cooler para procesador DeepCool AK400', '4 tubos de calor de cobre con diseño compacto de torre única', 179.00, 30, 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (48, 7, 'Ventilador ARGB para gabinete 120 mm', 'Iluminación personalizable con rodamientos silenciosos', 59.90, 40, 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (91, 7, 'Base ventiladora gamer para laptop RGB', 'Flujo de aire multinivel con luces ambientales incorporadas', 149.90, 25, 'https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (92, 7, 'Refrigeración líquida Cooler Master 240 mm', 'Radiador doble con bomba de agua de alto rendimiento térmico', 499.00, 15, 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (93, 7, 'Cooler para procesador Noctua NH-U12S', 'Renombrada ingeniería austriaca enfocada en silencio absoluto', 429.90, 20, 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (94, 7, 'Kit de 3 ventiladores ARGB 120 mm', 'Pack completo para sincronizar la estética y temperatura del chasis', 169.00, 30, 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=640&q=80', 0, true);
 
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (10, 3, 'Menestras', 'Lentejas o pallares bolsa 500g', 6.00, 45, 'menestras', 0, true);
-
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (11, 3, 'Atún', 'Atún en aceite vegetal lata 140g', 7.50, 60, 'atun', 0, true);
-
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (12, 3, 'Mayonesa', 'Salsa de mayonesa sachet o pomo', 8.50, 40, 'mayonesa', 0, true);
-
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (17, 3, 'Ajinomen', 'Sopa instantánea sabor gallina', 5.00, 70, 'https://metroio.vtexassets.com/arquivos/ids/405155-800-auto?v=638181137638930000&width=800&height=auto&aspect=true', 0, true);
-
--- Categoría 4: Snacks y Golosinas
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (6, 4, 'Galletas', 'Galletas surtidas', 3.50, 100, 'galletas', 0, true);
-
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (18, 4, 'De Todito', 'Piqueo snack original', 8.50, 50, 'https://metroio.vtexassets.com/arquivos/ids/532508/Piqueo-Snack-De-Todito-Original-50g-1-262297.jpg?v=638539944207000000', 0, true);
-
--- Categoría 1: Bebidas y Refrescos
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (7, 1, 'Gaseosa', 'Gaseosa Coca Cola 1.5L', 10.00, 50, 'gaseosaCocacola', 0, true);
-
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (8, 1, 'Gaseosa', 'Gaseosa Guaraná 1.5L', 8.00, 50, 'gaseosaGuarana', 0, true);
-
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (9, 1, 'Agua', 'Agua mineral sin gas 625ml', 2.50, 90, 'agua', 0, true);
-
--- Categoría 10: Congelados y Postres
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (14, 10, 'Hamburguesa de Pollo', 'Hamburguesas congeladas de pollo', 17.50, 30, 'https://metroio.vtexassets.com/arquivos/ids/559589-800-auto?v=638690386224130000&width=800&height=auto&aspect=true', 0, true);
-
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (15, 10, 'Nuggets de Pollo', 'Nuggets crocantes de pollo', 14.99, 35, 'https://metroio.vtexassets.com/arquivos/ids/638816-800-auto?v=639102297866470000&width=800&height=auto&aspect=true', 0, true);
-
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (19, 10, 'Helado Sublime', 'Helado sabor chocolate Sublime', 18.00, 20, 'https://metroio.vtexassets.com/arquivos/ids/351011-800-auto?v=638180578977300000&width=800&height=auto&aspect=true', 0, true);
-
--- Categoría 5: Embutidos y Carnes
-INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo)
-VALUES (20, 5, 'Pack Jamón - Queso', 'Pack de jamón inglés y queso Edam', 7.90, 25, 'https://wongfood.vteximg.com.br/arquivos/ids/594458-1000-1000/908062-1.jpg?v=638031806989070000', 0, true);
+-- Categoría 8: Accesorios (IDs 49 al 50 y 95 al 100)
+INSERT INTO producto (id, id_categoria, nombre, descripcion, precio, stock, imagen, descuento, activo) VALUES
+                                                                                                           (49, 8, 'Hub USB-C de 7 puertos', 'Expansión multifuncional con salidas de video y transferencia rápida', 139.00, 35, 'https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (50, 8, 'Soporte ajustable de aluminio para laptop', 'Diseño plegable que mejora la postura y ventilación del equipo', 119.90, 35, 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (95, 8, 'Adaptador USB-C a HDMI 4K', 'Transmisión de señal de video nítida sin pérdida de calidad', 79.90, 40, 'https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (96, 8, 'Docking station USB-C con doble HDMI', 'Convierte tu portátil en una estación de trabajo de múltiples pantallas', 299.00, 20, 'https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (97, 8, 'Cargador USB-C GaN de 100 W', 'Tecnología de nitruro de galio ultracompacta para múltiples dispositivos', 189.90, 30, 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (98, 8, 'Cable DisplayPort 1.4 de 2 metros', 'Blindaje múltiple para soportar altas tasas de refresco en monitores', 49.00, 50, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (99, 8, 'Mochila para laptop de 15.6 pulgadas', 'Compartimentos acolchados con protección contra impactos y cierres ocultos', 159.90, 25, 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=640&q=80', 0, true),
+                                                                                                           (100, 8, 'Regleta protectora contra sobretensiones', 'Tomas múltiples con fusible de corte automático ante picos de corriente', 89.00, 35, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=640&q=80', 0, true);
 
 -- =========================================================================
 -- 5. SINCRONIZAR SECUENCIAS DE POSTGRESQL
 -- =========================================================================
 SELECT setval(pg_get_serial_sequence('rol', 'id'), 2);
-SELECT setval(pg_get_serial_sequence('categoria', 'id'), 10);
-SELECT setval(pg_get_serial_sequence('producto', 'id'), 20);
+SELECT setval(pg_get_serial_sequence('categoria', 'id'), 8);
+SELECT setval(pg_get_serial_sequence('producto', 'id'), 100);
