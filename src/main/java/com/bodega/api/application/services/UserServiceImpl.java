@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserServicePort {
         //CAPA DE REGISTRO PARA USUARIOS PRIMARIOS
         if (user.getRole() == null || user.getRole().getId() == null) {
             Role defaultRole = new Role();
-            defaultRole.setId(2L); // Rol por defecto: USUARIO
+            defaultRole.setId(1L); // Rol por defecto: USUARIO
             user.setRole(defaultRole);
         }
 
